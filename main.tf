@@ -44,6 +44,12 @@ resource "aws_nat_gateway" "ngw" {
   subnet_id     = element(local.public_subnet_ids, count.index)
   }
 
+resource "aws_vpc_peering_connection" "foo" {
+  peer_vpc_id   = aws_vpc.main.id
+  vpc_id        = var.default_vpc_id
+  auto_accept = true
+}
+
 
 output "subnet" {
   value = module.subnets
